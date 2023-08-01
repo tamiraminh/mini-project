@@ -19,12 +19,9 @@ func CreateBooking(b Booking) (Booking, error) {
 		return Booking{}, err
 	}
 
-	SqlResult, err := stmt.Exec(b.Id, b.ClientName, b.PhotographerName, b.Package, b.DateTime, b.Location, b.Status)
-	if err != nil {
-		return Booking{}, err
-	}
+	stmt.Exec(b.Id, b.ClientName, b.PhotographerName, b.Package, b.DateTime, b.Location, b.Status)
 
-	fmt.Println(SqlResult)
+
 	return b, err
 }
 

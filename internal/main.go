@@ -3,6 +3,7 @@ package internal
 import (
 	"mini-project/docs"
 	"mini-project/internal/handler"
+	"mini-project/internal/midware"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -10,7 +11,6 @@ import (
 	"github.com/go-chi/cors"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
-
 
 // @title Booking API Docummentaion
 // @description This is a sample API for managing bookings.
@@ -35,6 +35,7 @@ func RunServer() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(corsOptions.Handler)
+	r.Use(midware.MockupAuthMiddleware)
 	
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello World!"))

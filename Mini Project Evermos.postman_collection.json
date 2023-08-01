@@ -1,0 +1,471 @@
+{
+	"info": {
+		"_postman_id": "3efc1ba6-c1a2-4027-85a4-26aeca85ac82",
+		"name": "Mini Project Evermos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15041244"
+	},
+	"item": [
+		{
+			"name": "Create Bookings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('status code should be 201', () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test('response header Content-Type should be application/json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test('response body should be an object', () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).to.be.an('object');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test('response body data should contain bookingId', () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    const { data } = responseJson;\r",
+							"\r",
+							"    pm.expect(data[0]).to.haveOwnProperty('Id');\r",
+							"    pm.expect(data[0].Id).to.not.equals('');\r",
+							"\r",
+							"    pm.environment.set('bookingId', data[0].Id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"data\": [ \r\n   {\r\n    \"clientName\": \"{{clientName}}\",\r\n    \"photographerName\": \"{{photographerName}}\",\r\n    \"package\": \"{{package}}\",\r\n    \"dateTime\": \"{{dateTime}}\",\r\n    \"location\": \"{{location}}\",\r\n    \"status\": \"{{status}}\"\r\n   }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:{{port}}/v1/bookings",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1",
+						"bookings"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Bookings",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"data\": [ \r\n   {\r\n    \"clientName\": \"Tim Tam\",\r\n    \"photographerName\": \"Tamir\",\r\n    \"package\": \"Portrait Session\",\r\n    \"dateTime\": \"2023-08-15 10:00\",\r\n    \"location\": \"City Park\",\r\n    \"status\": \"confirmed\"\r\n   }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/bookings",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"bookings"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 01 Aug 2023 13:21:48 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "209"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\"data\":[{\"Id\":\"6534d630-66fb-4981-bb16-c8dd74792afe\",\"clientName\":\"Tim Tam\",\"photographerName\":\"Tamir\",\"package\":\"Portrait Session\",\"dateTime\":\"2023-08-15 10:00\",\"location\":\"City Park\",\"status\":\"confirmed\"}]}"
+				}
+			]
+		},
+		{
+			"name": "Update Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test('response header Content-Type should be application/json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test('response body should be an object', () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).to.be.an('object');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"data\": [ \r\n   {\r\n    \"clientName\": \"{{clientName}} Update\",\r\n    \"photographerName\": \"{{photographerName}} Update\",\r\n    \"package\": \"Wedding Photo Session\",\r\n    \"dateTime\": \"2023-08-15 10:00\",\r\n    \"location\": \"City Park\",\r\n    \"status\": \"confirmed\"\r\n   }\r\n  ]\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:{{port}}/v1/bookings/{{bookingId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1",
+						"bookings",
+						"{{bookingId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Booking",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"data\": [ \r\n   {\r\n    \"clientName\": \"Tim Tam Update\",\r\n    \"photographerName\": \"Tamir Update\",\r\n    \"package\": \"Wedding Photo Session\",\r\n    \"dateTime\": \"2023-08-15 10:00\",\r\n    \"location\": \"City Park\",\r\n    \"status\": \"confirmed\"\r\n   }\r\n  ]\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/bookings/6534d630-66fb-4981-bb16-c8dd74792afe",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"bookings",
+								"6534d630-66fb-4981-bb16-c8dd74792afe"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 01 Aug 2023 13:24:36 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "228"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\"data\":[{\"Id\":\"6534d630-66fb-4981-bb16-c8dd74792afe\",\"clientName\":\"Tim Tam Update\",\"photographerName\":\"Tamir Update\",\"package\":\"Wedding Photo Session\",\"dateTime\":\"2023-08-15 10:00\",\"location\":\"City Park\",\"status\":\"confirmed\"}]}"
+				}
+			]
+		},
+		{
+			"name": "Delete Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('response header Content-Type should be application/json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test('response body should be an object', () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).to.be.an('object');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:{{port}}/v1/bookings/{{bookingId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1",
+						"bookings",
+						"{{bookingId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Booking",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/bookings/6534d630-66fb-4981-bb16-c8dd74792afe",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"bookings",
+								"6534d630-66fb-4981-bb16-c8dd74792afe"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 01 Aug 2023 13:25:11 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "104"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\"data\":\"success\",\"message\":\"Booking with id 6534d630-66fb-4981-bb16-c8dd74792afe successfully deleted\"}"
+				}
+			]
+		},
+		{
+			"name": "Read Bookings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('response header Content-Type should be application/json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test('response body should be an object', () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).to.be.an('object');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:{{port}}/v1/bookings?order=desc&orderBy=clientName&page=0&limit=3",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1",
+						"bookings"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "desc"
+						},
+						{
+							"key": "orderBy",
+							"value": "clientName"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Read Bookings",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/bookings?order=desc&orderBy=clientName&page=0&limit=3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"bookings"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "desc"
+								},
+								{
+									"key": "orderBy",
+									"value": "clientName"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 01 Aug 2023 13:25:23 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "653"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\"data\":[{\"Id\":\"c1c1e32f-03da-4e22-a77b-e6e31e11ff6a\",\"clientName\":\"Ella Rodriguez\",\"photographerName\":\"James Miller\",\"package\":\"Engagement Shoot\",\"dateTime\":\"2023-08-28 16:30\",\"location\":\"Botanical Gardens\",\"status\":\"confirmed\"},{\"Id\":\"eead8462-80e1-4e25-9e5b-66d7191c11e7\",\"clientName\":\"David Lee\",\"photographerName\":\"Sophia White\",\"package\":\"Event Photography\",\"dateTime\":\"2023-09-10 18:00\",\"location\":\"Grand Ballroom\",\"status\":\"confirmed\"},{\"Id\":\"e9a81996-1a6e-4c35-9270-96f470fb7d7e\",\"clientName\":\"Claire Turner\",\"photographerName\":\"John Anderson\",\"package\":\"Family Portraits\",\"dateTime\":\"2023-08-25 11:45\",\"location\":\"Studio\",\"status\":\"pending\"}]}"
+				}
+			]
+		}
+	]
+}

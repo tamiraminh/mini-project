@@ -24,6 +24,7 @@ import (
 // @Failure 500 {object} models.ResponseString
 // @Router /bookings [post]
 func CreateBooking(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	bookings := domain.BookingRequestFormat{}
 	resErr := models.ResponseString{}
 	res := models.Response{}
@@ -89,6 +90,7 @@ func CreateBooking(w http.ResponseWriter, r *http.Request) {
 // @Failure 500 {object} models.ResponseString
 // @Router /bookings [get]
 func ReadBookings(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	resErr := models.ResponseString{}
 	res := models.Response{}
 
@@ -139,7 +141,6 @@ func ReadBookings(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(500)
 		w.Write(jsonData)
 		return	
-		return
 	}
 
 	res.Data = bookings
@@ -166,6 +167,7 @@ func ReadBookings(w http.ResponseWriter, r *http.Request) {
 // @Failure 500 {object} models.ResponseString
 // @Router /bookings/{id} [put]
 func UpdateBooking(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	bookingId := chi.URLParam(r, "id")
 	bookings := domain.BookingRequestFormat{}
 	resErr := models.ResponseString{}
@@ -222,6 +224,7 @@ func UpdateBooking(w http.ResponseWriter, r *http.Request) {
 // @Failure 500 {object} models.ResponseString
 // @Router /bookings/{id} [delete]
 func DeleteBooking(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	bookingId := chi.URLParam(r, "id")
 	resErr := models.ResponseString{}
 	res := models.ResponseString{}
