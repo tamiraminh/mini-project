@@ -4,9 +4,15 @@ bootcamp evermos REST API
 ## How To Run
 1. get all dependencies defined in go.mod file in terminal
 ```
-go get -t -u ./...
+go mod download
 ```
-2. Configure Database Connecion, you can find this on internal/database/service.go. you will findout connection function like this
+2. Import database, you can find database in ./internal/database/booking.sql. import using this command to your mysql server 
+```
+mysql -u username -p new_database < ./internal/database/bootcampcrud
+```
+before import it, create new database in your mysql. then there is 2 table in bootcamp, there is booking and material. in this project, only use booking table.       
+
+3. Configure Database Connecion, you can find this on internal/database/service.go. you will findout connection function like this
 ```
 func Connect() (*sql.DB, error) {
 	db, err := sql.Open("mysql", "<username>:<password>@tcp(127.0.0.1:<mysqlserverport>)/<databasename>")
@@ -19,7 +25,7 @@ func Connect() (*sql.DB, error) {
 ```
 best practice is using .env file. ensure your confidential didnt get public   
 
-3. run the server with in the root directory
+4. run the server with in the root directory
 ```
 go run main.go
 ```
