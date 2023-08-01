@@ -1,0 +1,164 @@
+definitions:
+  domain.Booking:
+    properties:
+      clientName:
+        type: string
+      dateTime:
+        type: string
+      id:
+        type: string
+      location:
+        type: string
+      package:
+        type: string
+      photographerName:
+        type: string
+      status:
+        type: string
+    type: object
+  domain.BookingRequestFormat:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/domain.Booking'
+        type: array
+    type: object
+  models.Response:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/domain.Booking'
+        type: array
+    type: object
+  models.ResponseString:
+    properties:
+      data:
+        type: string
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /bookings:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of bookings with pagination and sorting options.
+      operationId: get-bookings
+      parameters:
+      - description: 'Sorting order: asc or desc'
+        in: query
+        name: order
+        type: string
+      - description: 'Sort by column: id, clientName, photographerName, package, dateTime,
+          location, status'
+        in: query
+        name: orderBy
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Number of records per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseString'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseString'
+      summary: Get bookings
+    post:
+      consumes:
+      - application/json
+      description: Create a new booking.
+      operationId: create-booking
+      parameters:
+      - description: Booking data in JSON format
+        in: body
+        name: booking
+        required: true
+        schema:
+          $ref: '#/definitions/domain.BookingRequestFormat'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseString'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseString'
+      summary: Create a booking
+  /bookings/{id}:
+    delete:
+      description: Delete an existing booking.
+      operationId: delete-booking
+      parameters:
+      - description: Booking ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseString'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseString'
+      summary: Delete a booking
+    put:
+      consumes:
+      - application/json
+      description: Update an existing booking.
+      operationId: update-booking
+      parameters:
+      - description: Booking ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Booking data in JSON format
+        in: body
+        name: booking
+        required: true
+        schema:
+          $ref: '#/definitions/domain.BookingRequestFormat'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseString'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseString'
+      summary: Update a booking
+swagger: "2.0"
