@@ -35,5 +35,14 @@ to import documentation you can use
 
 on this root project and import it to postman 
 
+to see swagger documentation you can 
+1. run server
+```
+go run main.go
+```
+2. access swagger URL in you local browser 
+```
+http://localhost:8080/swagger/
+```
 
 made by : Muhammad Tamiramin Hayat Suhendar
