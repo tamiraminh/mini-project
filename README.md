@@ -8,9 +8,9 @@ go mod download
 ```
 2. Import database, you can find database in ./internal/database/booking.sql. import using this command to your mysql server 
 ```
-mysql -u username -p new_database < ./internal/database/bootcampcrud
+mysql -u username -p new_database < ./internal/database/bootcamp.sql
 ```
-before import it, create new database in your mysql. then there is 2 table in bootcamp, there is booking and material. in this project, only use booking table.       
+before import it, create new database in your mysql. bootcamp.sql contains 2 table, there is booking and material. in this project, only use booking table.       
 
 3. Configure Database Connecion, you can find this on internal/database/service.go. you will findout connection function like this
 ```
