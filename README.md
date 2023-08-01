@@ -17,7 +17,8 @@ func Connect() (*sql.DB, error) {
 	return db, nil
 }
 ```
-best practice is using .env file. ensure your confidential didnt get public
+best practice is using .env file. ensure your confidential didnt get public   
+
 3. run the server with in the root directory
 ```
 go run main.go
